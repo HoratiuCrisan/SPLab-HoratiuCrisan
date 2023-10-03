@@ -1,2 +1,3 @@
 # SPLab-HoratiuCrisan
-SPLab 
+SPLab
+Repository cloned successfuly!
