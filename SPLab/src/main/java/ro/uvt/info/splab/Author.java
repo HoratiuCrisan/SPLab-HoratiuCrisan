@@ -9,6 +9,10 @@ public class Author {
     public String GetAuthor() {
         return this.name;
     }
+
+    public void SetAuthor(String name) {
+        this.name = name;
+    }
     public String print() {
         return this.name;
     }
