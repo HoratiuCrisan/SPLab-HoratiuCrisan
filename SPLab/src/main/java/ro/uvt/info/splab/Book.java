@@ -2,12 +2,17 @@ package ro.uvt.info.splab;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 public class Book implements TableOfConens{
     private String title;
     private Collection<Author> authorList = new ArrayList<Author>();
 
     private Collection<Chapter> chapters = new ArrayList<Chapter>();
+
+    public Book(String title) {
+        this.title = title;
+    }
 
     public Book(String title, ArrayList<Author> authorList) {
         this.title = title;
@@ -28,6 +33,25 @@ public class Book implements TableOfConens{
 
     public Collection<Chapter> GetChapters() {
         return this.chapters;
+    }
+
+    public void AddAuthor(Author author) {
+        authorList.add(author);
+    }
+
+    public int CreateChapter(String chapter) {
+        this.chapters.add(new Chapter(chapter));
+
+        return this.chapters.size() - 1;
+    }
+
+    public Chapter GetChapter(int index) {
+        Chapter currentChapter = new Chapter("Null");
+        Iterator<Chapter> iterator = this.chapters.iterator();
+        for (int i = 0; i <= index && iterator.hasNext(); i++)
+            currentChapter = iterator.next();
+
+        return currentChapter;
     }
 
     @Override
