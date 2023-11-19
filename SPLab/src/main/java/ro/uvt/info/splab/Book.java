@@ -4,70 +4,61 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class Book implements TableOfConens{
+public class Book extends Section {
     private String title;
-    private Collection<Author> authorList = new ArrayList<Author>();
-
-    private Collection<Chapter> chapters = new ArrayList<Chapter>();
+    private ArrayList<Element> bookElements = new ArrayList<>();
+    private ArrayList<Author> authors = new ArrayList<>();
 
     public Book(String title) {
+        super("");
         this.title = title;
+        this.authors = new ArrayList<>();
     }
-
-    public Book(String title, ArrayList<Author> authorList) {
+    public Book(String title, String text) {
+        super(text);
         this.title = title;
-        this.authorList = authorList;
+        this.authors = new ArrayList<>();
     }
 
-    public String GetTitle() {
-        return this.title;
+    public void addAuthor(Author author) {
+        this.authors.add(author);
     }
 
-    public void SetTitle(String title) {
-        this.title = title;
+    public void removeAuthor(Author author) {
+        this.authors.remove(author);
     }
 
-    public void SetChapters(Collection<Chapter> chapters) {
-        this.chapters = chapters;
+    public void print() {
+        System.out.println(this.title);
+        System.out.println("Authors: ");
+        for (Author author : this.authors)
+            author.print();
+
+        System.out.println("Sections: ");
+        for (Element section : this.bookElements)
+            section.print();
     }
 
-    public Collection<Chapter> GetChapters() {
-        return this.chapters;
+
+    public void addContent(Element element) {
+        if (element.getParent() != null)
+            throw new IllegalArgumentException("Element already has a parent!");
+        this.bookElements.add(element);
+        element.setParent(this);
     }
 
-    public void AddAuthor(Author author) {
-        authorList.add(author);
+
+    public void remove(Element element) {
+        if (!this.bookElements.contains(element))
+            System.out.println("Book does not contain that element!");
+        else
+            this.bookElements.remove(element);
     }
 
-    public int CreateChapter(String chapter) {
-        this.chapters.add(new Chapter(chapter));
 
-        return this.chapters.size() - 1;
-    }
-
-    public Chapter GetChapter(int index) {
-        Chapter currentChapter = new Chapter("Null");
-        Iterator<Chapter> iterator = this.chapters.iterator();
-        for (int i = 0; i <= index && iterator.hasNext(); i++)
-            currentChapter = iterator.next();
-
-        return currentChapter;
-    }
-
-    @Override
-    public String print() {
-        String authors = "";
-        for (Author aut : authorList) {
-            authors += aut.print();
-        }
-
-        String chapt = "";
-        for (Chapter chapter : chapters) {
-            chapt += chapter.print();
-        }
-
-        return "\nTitle: " + title
-                + "\nAuthors: \n" + authors
-                + "\nChapters: \n" + chapt;
+    public Element get(int index) {
+        if (index >= 0 && index < this.bookElements.size())
+            return this.bookElements.get(index);
+        return null;
     }
 }
