@@ -1,21 +1,36 @@
 package ro.uvt.info.splab;
 
-public class Image {
-    private String imageName;
+public class Image implements Element{
+    private String url;
+    private Section parent;
+    public Image(String url) {this.url = url;}
 
-    public Image(String imageName) {
-        this.imageName = imageName;
+    @Override
+    public void setParent(Section parent) {
+        this.parent = parent;
     }
 
-    public void SetImageName(String imageName) {
-        this.imageName = imageName;
+    @Override
+    public Section getParent() {
+        return parent;
+    }
+    @Override
+    public void print() {
+        System.out.println(this.url + "\n");
     }
 
-    public String GetImageName() {
-        return this.imageName;
+    @Override
+    public void add(Element element) {
+        System.out.println("Cannot add elements to a leaf node!");
     }
 
-    public String print() {
-        return "\nImage name: " + this.imageName;
+    @Override
+    public void remove(Element element) {
+        System.out.println("Cannot remove elements from a leaf node!");
+    }
+
+    @Override
+    public Element get(int index) {
+        return null;
     }
 }
