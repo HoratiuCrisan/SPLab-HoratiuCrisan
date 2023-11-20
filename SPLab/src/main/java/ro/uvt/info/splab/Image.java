@@ -1,13 +1,32 @@
 package ro.uvt.info.splab;
 
-public class Image implements Element{
+import java.awt.*;
+import java.util.concurrent.TimeUnit;
+
+public class Image implements Element, Picture{
     private String url;
+    private Dimension dim;
+    private Picture content;
     private Section parent;
-    public Image(String url) {this.url = url;}
+
+    public Image(String url) {
+        this.url = url;
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        this.content = new ImageProxy(url);
+    }
 
     @Override
     public void setParent(Section parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public Dimension dim() {
+        return this.dim;
     }
 
     @Override
@@ -32,5 +51,10 @@ public class Image implements Element{
     @Override
     public Element get(int index) {
         return null;
+    }
+
+    @Override
+    public String url() {
+        return this.url;
     }
 }
