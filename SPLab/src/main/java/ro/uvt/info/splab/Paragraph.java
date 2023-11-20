@@ -3,8 +3,18 @@ package ro.uvt.info.splab;
 public class Paragraph implements Element{
     private String text;
     private Section parent;
+    private AlignStrategy strategy;
     public Paragraph(String text) {
+        this.strategy = new AlignLeft();
         this.text = text;
+    }
+
+    public void setAlignStrategy(AlignStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public AlignStrategy getAlignStrategy() {
+        return this.strategy;
     }
 
     @Override
