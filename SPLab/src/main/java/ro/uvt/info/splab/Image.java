@@ -8,15 +8,25 @@ public class Image implements Element, Picture{
     private Dimension dim;
     private Picture content;
     private Section parent;
+    private ImageLoader imageLoader;
 
     public Image(String url) {
         this.url = url;
+        this.imageLoader = new JPGImageLoader();
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         this.content = new ImageProxy(url);
+    }
+
+    public void setImageLoader(ImageLoader imageLoader) {
+        this.imageLoader = imageLoader;
+    }
+
+    public ImageLoader getImageLoader() {
+        return this.imageLoader;
     }
 
     @Override

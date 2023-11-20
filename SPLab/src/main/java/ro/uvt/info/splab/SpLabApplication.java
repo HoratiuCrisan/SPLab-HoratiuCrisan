@@ -26,6 +26,14 @@ public class SpLabApplication {
         System.out.println("Printing with Alignment");
         System.out.println();
         cap1.print();
+
+        Image img1 = new Image("C:\\Users\\Horatiu\\Uni\\SP\\SPLab-HoratiuCrisan\\Images");
+        img1.setImageLoader(new JPGImageLoader());
+        cap1.add(img1);
+
+        System.out.println();
+        System.out.println("Capitol cu imagine: ");
+        cap1.print();
     }
 
 }
