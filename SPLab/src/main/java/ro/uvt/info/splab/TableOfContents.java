@@ -3,16 +3,15 @@ package ro.uvt.info.splab;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Table implements Element{
+public class TableOfContents implements Element{
+
     @Getter
     @Setter
-    private String title;
+    private String text;
     private Element parent;
-
-    public Table(String title) {
-        this.title = title;
+    public TableOfContents(String text) {
+        this.text = text;
     }
-
     @Override
     public void add(Element element) throws Exception {
         throw new Exception("You cannot add an element to a node element!");
@@ -40,6 +39,6 @@ public class Table implements Element{
 
     @Override
     public void print() {
-        System.out.println("Table: " + this.title);
+        System.out.println("Table of contents: " + this.text);
     }
 }

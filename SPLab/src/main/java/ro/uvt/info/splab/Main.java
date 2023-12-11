@@ -1,12 +1,7 @@
 package ro.uvt.info.splab;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class SpLabApplication {
-
-    public static void main(String[] args) throws Exception {
+public class Main {
+    public static void main(String[] args) throws Exception{
         long startTime = System.currentTimeMillis();
         ImageProxy img1 = new ImageProxy("Pamela Anderson");
         ImageProxy img2 = new ImageProxy("Kim Kardashian");
@@ -17,8 +12,8 @@ public class SpLabApplication {
         playboyS2.add(img2);
         playboyS2.add(img3);
         Book playboy = new Book("Playboy");
-        playboy.addContent(playboyS1);
-        playboy.addContent(playboyS2);
+        playboy.add(playboyS1);
+        playboy.add(playboyS2);
         long endTime = System.currentTimeMillis();
         System.out.println("Creation of the content took " + (endTime -
                 startTime) + " milliseconds");
