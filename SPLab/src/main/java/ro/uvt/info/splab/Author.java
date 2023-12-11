@@ -1,22 +1,18 @@
 package ro.uvt.info.splab;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Author {
+    @Getter
+    @Setter
     private String name;
 
-    public Author(String name) {
+    public Author (String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public void print() {
-        System.out.print("Name: " + this.name);
+    public String print() {
+        return "Author: " + this.name;
     }
 }
