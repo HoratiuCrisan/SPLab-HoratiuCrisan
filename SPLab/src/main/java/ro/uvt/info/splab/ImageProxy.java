@@ -1,62 +1,83 @@
 package ro.uvt.info.splab;
 
 import java.awt.*;
+import java.io.IOException;
+import java.util.Objects;
 
 public class ImageProxy implements Element, Picture{
+    private static Image image;
+    private Element parent;
     private String url;
-    private Image realImage;
-    private Section parent;
+    private String content;
     private Dimension dim;
 
-    public ImageProxy(String url) {
+    public ImageProxy(String content) {
+        this.content = content;
+        this.url = "";
+        this.dim = new Dimension(0,0);
+    }
+
+    public ImageProxy(String content, String url) {
+        this.content = content;
         this.url = url;
-        this.realImage = null;
+        this.dim = new Dimension(0,0);
+    }
+
+    public ImageProxy(String content, String url, Dimension dim) {
+        this.content = content;
+        this.url = url;
+        this.dim = dim;
+    }
+
+    public Image loadImage() throws IOException {
+        if (image == null) {
+            image = new Image(content, url, dim);
+        }
+        return image;
     }
 
     @Override
-    public void setParent(Section parent) {
-        this.parent = parent;
+    public String content() throws Exception {
+        throw new Exception("You cannot display the content of the image inside a Proxy!");
     }
 
     @Override
-    public Section getParent() {
+    public String url() throws Exception {
+        throw new Exception("You cannot display the url of the image inside a Proxy!");
+    }
+
+    @Override
+    public Dimension dim() throws Exception {
+        throw new Exception("You cannot display the dimension of the image inside a Proxy!");
+    }
+
+    @Override
+    public void add(Element element) throws Exception {
+        throw new Exception("You cannot add an element to a Proxy!");
+    }
+
+    @Override
+    public void remove(Element element) throws Exception {
+        throw new Exception("You cannot remove an element from a Proxy!");
+    }
+
+    @Override
+    public Element get(int index) throws Exception {
+        throw new Exception("You cannot get an element from a Proxy!");
+    }
+
+    @Override
+    public Element getParent() {
         return this.parent;
     }
 
     @Override
-    public Dimension dim() {
-        throw new UnsupportedOperationException("This is not the real image!");
+    public void setParent(Element parent) {
+        this.parent = parent;
     }
 
     @Override
-    public void print() {
-        loadImage();
-        realImage.print();
-    }
-
-    @Override
-    public void add(Element element) {
-        throw new UnsupportedOperationException("This is not the real image!");
-    }
-
-    @Override
-    public void remove(Element element) {
-        throw new UnsupportedOperationException("This is not the real image!");
-    }
-
-    @Override
-    public Element get(int index) {
-        throw new UnsupportedOperationException("This is not the real image!");
-    }
-
-    @Override
-    public String url() {
-        throw new UnsupportedOperationException("This is not the real image!");
-    }
-
-    public Image loadImage() {
-        if (this.realImage == null)
-            this.realImage = new Image(url);
-        return this.realImage;
+    public void print() throws IOException {
+        loadImage().print();
     }
 }

@@ -1,12 +1,7 @@
 package ro.uvt.info.splab;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class SpLabApplication {
-
-    public static void main(String[] args) throws Exception {
+public class Main {
+    public static void main(String[] args) throws Exception{
         Section cap1 = new Section("Capitolul 1");
         Paragraph p1 = new Paragraph("Paragraph 1");
         cap1.add(p1);
@@ -22,18 +17,13 @@ public class SpLabApplication {
         p1.setAlignStrategy(new AlignCenter());
         p2.setAlignStrategy(new AlignRight());
         p3.setAlignStrategy(new AlignLeft());
+
         System.out.println();
         System.out.println("Printing with Alignment");
         System.out.println();
         cap1.print();
 
-        Image img1 = new Image("C:\\Users\\Horatiu\\Uni\\SP\\SPLab-HoratiuCrisan\\Images");
-        img1.setImageLoader(new JPGImageLoader());
-        cap1.add(img1);
-
-        System.out.println();
-        System.out.println("Capitol cu imagine: ");
-        cap1.print();
+        ImageProxy proxy1 = new ImageProxy("bmp image", "https://people.math.sc.edu/Burkardt/data/bmp/greenland_grid_velo.bmp");
     }
 
 }

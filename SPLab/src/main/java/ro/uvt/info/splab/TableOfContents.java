@@ -3,18 +3,15 @@ package ro.uvt.info.splab;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Paragraph implements Element{
+public class TableOfContents implements Element{
+
     @Getter
     @Setter
     private String text;
     private Element parent;
-    private AlignStrategy alignStrategy;
-
-    public Paragraph(String text) {
+    public TableOfContents(String text) {
         this.text = text;
-        this.alignStrategy = new AlignLeft();
     }
-
     @Override
     public void add(Element element) throws Exception {
         throw new Exception("You cannot add an element to a node element!");
@@ -40,12 +37,8 @@ public class Paragraph implements Element{
         return this.parent;
     }
 
-    public void setAlignStrategy(AlignStrategy alignStrategy) {
-        this.alignStrategy = alignStrategy;
-    }
-
     @Override
     public void print() {
-        System.out.println("Paragraph: " + "\n" + alignStrategy.render(this.text));
+        System.out.println("Table of contents: " + this.text);
     }
 }

@@ -1,37 +1,45 @@
 package ro.uvt.info.splab;
 
-public class Table implements Element{
-    private String text;
-    private Section parent;
+import lombok.Getter;
+import lombok.Setter;
 
-    public Table(String text) {this.text = text;}
+public class Table implements Element{
+    @Getter
+    @Setter
+    private String title;
+    private Element parent;
+
+    public Table(String title) {
+        this.title = title;
+    }
 
     @Override
-    public void setParent(Section parent) {
+    public void add(Element element) throws Exception {
+        throw new Exception("You cannot add an element to a node element!");
+    }
+
+    @Override
+    public void remove(Element element) throws Exception {
+        throw new Exception("You cannot remove an element from a leaf node!");
+    }
+
+    @Override
+    public Element get(int index) throws Exception {
+        throw new Exception("You cannot extract an element from a leaf node!");
+    }
+
+    @Override
+    public void setParent(Element parent) {
         this.parent = parent;
     }
 
     @Override
-    public Section getParent() {
+    public Element getParent() {
         return this.parent;
     }
 
     @Override
     public void print() {
-        System.out.println(this.text + "\n");
-    }
-    @Override
-    public void add(Element element) {
-        System.out.println("Cannot add elements to a leaf node!");
-    }
-
-    @Override
-    public void remove(Element element) {
-        System.out.println("Cannot remove elements from a leaf node!");
-    }
-
-    @Override
-    public Element get(int index) {
-        return null;
+        System.out.println("Table: " + this.title);
     }
 }

@@ -1,37 +1,60 @@
 package ro.uvt.info.splab;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.awt.*;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+@Setter
+@Getter
 
 public class Image implements Element, Picture{
+    private String content;
     private String url;
+    private Element parent;
     private Dimension dim;
-    private Picture content;
-    private Section parent;
-    private ImageLoader imageLoader;
 
-    public Image(String url) {
+
+    public Image (String content, String url, Dimension dim) throws IOException {
+        this.content = content;
         this.url = url;
-        this.imageLoader = new JPGImageLoader();
+        new ImageLoaderFactory().createImageLoader(url);
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.content = new ImageProxy(url);
-    }
-
-    public void setImageLoader(ImageLoader imageLoader) {
-        this.imageLoader = imageLoader;
-    }
-
-    public ImageLoader getImageLoader() {
-        return this.imageLoader;
     }
 
     @Override
-    public void setParent(Section parent) {
+    public void add(Element element) throws Exception {
+        throw new Exception("You cannot add an element to a node element!");
+    }
+
+    @Override
+    public void remove(Element element) throws Exception {
+        throw new Exception("You cannot remove an element from a leaf node!");
+    }
+
+    @Override
+    public Element get(int index) throws Exception {
+        throw new Exception("You cannot extract an element from a leaf node!");
+    }
+
+    @Override
+    public void setParent(Element parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public Element getParent() {
+        return this.parent;
+    }
+
+    @Override
+    public String url() {
+        return this.url;
     }
 
     @Override
@@ -40,31 +63,11 @@ public class Image implements Element, Picture{
     }
 
     @Override
-    public Section getParent() {
-        return parent;
+    public String content() {
+        return this.content;
     }
     @Override
     public void print() {
-        System.out.println(this.url + "\n");
-    }
-
-    @Override
-    public void add(Element element) {
-        System.out.println("Cannot add elements to a leaf node!");
-    }
-
-    @Override
-    public void remove(Element element) {
-        System.out.println("Cannot remove elements from a leaf node!");
-    }
-
-    @Override
-    public Element get(int index) {
-        return null;
-    }
-
-    @Override
-    public String url() {
-        return this.url;
+        System.out.println("Image with name: " + this.url + "\n" + "Content: " + this.content);
     }
 }
