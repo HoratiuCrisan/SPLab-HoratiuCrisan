@@ -1,6 +1,6 @@
 package ro.uvt.info.splab;
 
-public class Table {
+public class Table implements Element{
     private String title;
 
     public Table(String title) {
@@ -15,6 +15,7 @@ public class Table {
         return this.title;
     }
 
+    @Override
     public String print() {
         return "Table: " + this.title;
     }

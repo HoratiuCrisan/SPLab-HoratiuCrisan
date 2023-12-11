@@ -1,6 +1,6 @@
 package ro.uvt.info.splab;
 
-public class Paragraph {
+public class Paragraph implements Element{
     private String text;
 
     public Paragraph(String text) {
@@ -15,6 +15,7 @@ public class Paragraph {
         return this.text;
     }
 
+    @Override
     public String print() {
         return "Paragraph: " + this.text;
     }

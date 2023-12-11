@@ -10,36 +10,28 @@ public class SubChapter {
     @Getter
     @Setter
     private String name;
-    private Collection<Image> imageList = new ArrayList<>();
-    private Collection<Paragraph> paragraphList = new ArrayList<>();
-    private Collection<Table> tableList = new ArrayList<>();
+
+    private Collection<Element> elementList = new ArrayList<>();
+
+    public void createNewElement(Element element) {
+        this.elementList.add(element);
+    }
 
     public SubChapter(String name) {
         this.name = name;
     }
 
-    public void createNewImage(String image) {
-        this.imageList.add(new Image(image));
-    }
-
-    public void createNewParagraph(String paragraph) {
-        this.paragraphList.add(new Paragraph(paragraph));
-    }
-
-    public void createNewTable(String table) {
-        this.tableList.add(new Table(table));
-    }
-
     public String print() {
         StringBuilder text = new StringBuilder("SubChapter: " + this.name + "\n");
-        for (Paragraph paragraph : this.paragraphList)
-            text.append(paragraph.print()).append("\n");
 
-        for (Image img : this.imageList)
-            text.append(img.print()).append("\n");
-
-       for (Table table : this.tableList)
-            text.append(table.print()).append("\n");
+        for (Element elem : this.elementList) {
+            if (elem instanceof Paragraph)
+                text.append(((Paragraph)elem).print()).append("\n");
+            else if (elem instanceof Image)
+                text.append(((Image)elem).print()).append("\n");
+            else
+                text.append(((Table)elem).print()).append("\n");
+        }
 
         return text.toString();
     }

@@ -1,6 +1,6 @@
 package ro.uvt.info.splab;
 
-public class Image {
+public class Image implements Element{
     private String imageName;
 
     public Image (String imageName) {
@@ -15,6 +15,7 @@ public class Image {
         return this.imageName;
     }
 
+    @Override
     public String print() {
         return "Image: " + this.imageName;
     }
