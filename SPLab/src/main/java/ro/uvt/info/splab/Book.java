@@ -6,47 +6,67 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Book implements TableOfContents{
-    @Getter
-    @Setter
+public class Book extends Section{
     private String title;
-    private Collection<Author> authorList = new ArrayList<>();
-
-    Collection<Chapter> chapterList = new ArrayList<>();
-
+    private Collection<Author> authorCollection = new ArrayList<>();
     public Book(String title) {
+        super(null);
         this.title = title;
-        this.authorList = new ArrayList<>();
     }
 
-    public int createChapter(String chapter) {
-        this.chapterList.add(new Chapter(chapter));
-        return this.chapterList.size() - 1;
+    public void add(Element element) throws Exception {
+        //System.out.println("Element added successfully to the book!");
+        if (element.getParent() != null)
+            throw new Exception("You cannot add an existing element to the book!");
+        else {
+            this.elementCollection.add(element);
+            element.setParent(this);
+        }
     }
 
-    public Chapter getChapter(int index) {
-        int i = 0;
-        while (this.chapterList.iterator().hasNext()) {
-            if (i == index)
-                return this.chapterList.iterator().next();
-            this.chapterList.iterator().next();
-            i++;
+    public void remove(Element element) {
+        //System.out.println("Element removed successfully from the book!");
+        this.elementCollection.remove(element);
+        element.setParent(null);
+    }
+
+    public Element get(int index) {
+        int localIndex = 0;
+        for (Element element : this.elementCollection) {
+            if (localIndex == index)
+                return element;
+            localIndex++;
         }
         return null;
     }
 
     public void addAuthor(Author author) {
-        this.authorList.add(author);
+        this.authorCollection.add(author);
     }
 
-    @Override
-    public String print() {
-        StringBuilder text = new StringBuilder("Book: " + this.title + "\n");
-        for (Author author : this.authorList)
-            text.append(author.print()).append("\n");
-        for (Chapter chapter: this.chapterList)
-            text.append(chapter.print()).append("\n");
+    public void removeAuthor(Author author) {
+        this.authorCollection.remove(author);
+    }
 
-        return text.toString();
+    public Author getAuthor(int index) {
+        int localIndex = 0;
+        for (Author auth : this.authorCollection) {
+            if (localIndex == index)
+                return auth;
+            localIndex++;
+        }
+        return null;
+    }
+
+    public void print() {
+        System.out.println("Book: " + this.title);
+        System.out.println("Authors: ");
+
+        for (Author auth : this.authorCollection)
+            auth.print();
+
+        System.out.println();
+        for (Element elem: this.elementCollection)
+            elem.print();
     }
 }

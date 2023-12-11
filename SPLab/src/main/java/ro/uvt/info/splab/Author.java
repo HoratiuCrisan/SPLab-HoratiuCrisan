@@ -12,7 +12,7 @@ public class Author {
         this.name = name;
     }
 
-    public String print() {
-        return "Author: " + this.name;
+    public void print() {
+        System.out.println("Author: " + this.name);
     }
 }
