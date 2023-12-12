@@ -3,7 +3,7 @@ package ro.uvt.info.splab;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Table implements Element{
+public class Table implements Element, Visitee{
     @Getter
     @Setter
     private String title;
@@ -36,6 +36,11 @@ public class Table implements Element{
     @Override
     public Element getParent() {
         return this.parent;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitTable(this);
     }
 
     @Override

@@ -3,7 +3,7 @@ package ro.uvt.info.splab;
 import lombok.Getter;
 import lombok.Setter;
 
-public class Paragraph implements Element{
+public class Paragraph implements Element, Visitee{
     @Getter
     @Setter
     private String text;
@@ -42,6 +42,11 @@ public class Paragraph implements Element{
 
     public void setAlignStrategy(AlignStrategy alignStrategy) {
         this.alignStrategy = alignStrategy;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitParagraph(this);
     }
 
     @Override

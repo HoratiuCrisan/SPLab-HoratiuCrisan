@@ -4,7 +4,7 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
 
-public class ImageProxy implements Element, Picture{
+public class ImageProxy implements Element, Picture, Visitee{
     private static Image image;
     private Element parent;
     private String url;
@@ -74,6 +74,11 @@ public class ImageProxy implements Element, Picture{
     @Override
     public void setParent(Element parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitImageProxy(this);
     }
 
     @Override

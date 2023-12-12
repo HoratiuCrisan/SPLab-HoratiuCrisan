@@ -28,19 +28,22 @@ public class HelloController {
 
     @GetMapping("/hello")
     @ResponseBody
-    public String helloComponent() {
-        return "Hello " + this.transientComponent;
+    public void helloComponent() {
+        System.out.println("Hello: ");
+        this.transientComponent.operation();
     }
 
     @GetMapping("/client1")
     @ResponseBody
-    public String helloClient() {
-        return "Hello " +  this.clientComponent1;
+    public void helloClient() {
+        System.out.println("ClientComponent1 :");
+        this.clientComponent1.operation();
     }
 
     @GetMapping("/client2")
     @ResponseBody
-    public String helloClient2() {
-        return "Hello " + this.clientComponent2;
+    public void helloClient2() {
+        System.out.println("ClientComponent2 :");
+        this.clientComponent2.operation();
     }
 }

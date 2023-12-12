@@ -3,14 +3,20 @@ package ro.uvt.info.splab;
 import lombok.Getter;
 import lombok.Setter;
 
-public class TableOfContents implements Element{
+import java.util.ArrayList;
+
+public class TableOfContents implements Element, Visitee{
 
     @Getter
     @Setter
-    private String text;
+    private ArrayList<String> entries;
     private Element parent;
-    public TableOfContents(String text) {
-        this.text = text;
+    public TableOfContents() {
+        this.entries = new ArrayList<>();
+    }
+
+    public void addEntry(String entry) {
+        this.entries.add(entry);
     }
     @Override
     public void add(Element element) throws Exception {
@@ -38,7 +44,14 @@ public class TableOfContents implements Element{
     }
 
     @Override
+    public void accept(Visitor visitor) {
+        visitor.visitTableOfContents(this);
+    }
+
+    @Override
     public void print() {
-        System.out.println("Table of contents: " + this.text);
+        System.out.println("Table of contents: ");
+        for (String content : this.entries)
+            System.out.println(content);
     }
 }

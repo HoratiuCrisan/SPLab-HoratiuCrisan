@@ -59,6 +59,14 @@ public class Book extends Section{
         return null;
     }
 
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitBook(this);
+
+        for (Element element : this.elementCollection)
+            element.accept(visitor);
+    }
+
     public void print() throws IOException {
         System.out.println("Book: " + this.title);
         System.out.println("Authors: ");

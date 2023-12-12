@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class Section implements Element{
+public class Section implements Element, Visitee{
     @Getter
     @Setter
     private String title;
@@ -55,6 +55,14 @@ public class Section implements Element{
             localIndex++;
         }
         return null;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitSection(this);
+
+        for (Element element : this.elementCollection)
+            element.accept(visitor);
     }
 
     @Override

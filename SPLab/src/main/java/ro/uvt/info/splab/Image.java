@@ -9,12 +9,23 @@ import java.util.concurrent.TimeUnit;
 @Setter
 @Getter
 
-public class Image implements Element, Picture{
+public class Image implements Element, Picture, Visitee{
     private String content;
     private String url;
     private Element parent;
     private Dimension dim;
 
+    public Image(String content) {
+        this.content = content;
+        this.url = "";
+        this.dim = new Dimension(0,0);
+        //new ImageLoaderFactory().createImageLoader();
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Image (String content, String url, Dimension dim) throws IOException {
         this.content = content;
@@ -65,6 +76,11 @@ public class Image implements Element, Picture{
     @Override
     public String content() {
         return this.content;
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visitImage(this);
     }
     @Override
     public void print() {
