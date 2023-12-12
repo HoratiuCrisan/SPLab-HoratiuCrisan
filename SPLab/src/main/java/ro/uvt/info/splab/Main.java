@@ -23,6 +23,10 @@ public class Main {
         TableOfContentsVisitor tocUpdate = new TableOfContentsVisitor();
         b.accept(tocUpdate);
         tocUpdate.getToC().print();
+
+        BookSaveVisitor bookSaveVisitor = new BookSaveVisitor();
+        b.accept(bookSaveVisitor);
+        bookSaveVisitor.transferToJSON("book_data.json");
     }
 
 }

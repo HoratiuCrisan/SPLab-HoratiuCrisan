@@ -52,7 +52,7 @@ public class TableOfContents implements Element, Visitee{
     public void print() {
         System.out.println("Table of Contents:");
         for (int i = 0; i < entries.size(); i++) {
-            System.out.println((i + 1) + ". " + entries.get(i));
+            System.out.println(entries.get(i));
         }
     }
 }
