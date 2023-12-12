@@ -77,7 +77,7 @@ public class ImageProxy implements Element, Picture, Visitee{
     }
 
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(Visitor visitor) throws IOException {
         visitor.visitImageProxy(this);
     }
 

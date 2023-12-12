@@ -50,8 +50,9 @@ public class TableOfContents implements Element, Visitee{
 
     @Override
     public void print() {
-        System.out.println("Table of contents: ");
-        for (String content : this.entries)
-            System.out.println(content);
+        System.out.println("Table of Contents:");
+        for (int i = 0; i < entries.size(); i++) {
+            System.out.println((i + 1) + ". " + entries.get(i));
+        }
     }
 }

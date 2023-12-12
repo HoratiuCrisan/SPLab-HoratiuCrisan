@@ -11,5 +11,5 @@ public interface Element extends Visitee {
     public Element getParent();
 
     @Override
-    public void accept(Visitor visitor);
+    public void accept(Visitor visitor) throws IOException;
 }

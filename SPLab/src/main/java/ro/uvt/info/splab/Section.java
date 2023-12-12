@@ -58,7 +58,7 @@ public class Section implements Element, Visitee{
     }
 
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(Visitor visitor) throws IOException {
         visitor.visitSection(this);
 
         for (Element element : this.elementCollection)

@@ -60,7 +60,7 @@ public class Book extends Section{
     }
 
     @Override
-    public void accept(Visitor visitor) {
+    public void accept(Visitor visitor) throws IOException {
         visitor.visitBook(this);
 
         for (Element element : this.elementCollection)
