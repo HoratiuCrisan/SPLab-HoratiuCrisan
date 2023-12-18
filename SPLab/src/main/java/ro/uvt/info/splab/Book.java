@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class Book extends Section{
-    private String title;
-    private Collection<Author> authorCollection = new ArrayList<>();
+    private final String title;
+    private Long id;
+    private final Collection<Author> authorCollection = new ArrayList<>();
     public Book(String title) {
         super(null);
         this.title = title;
@@ -57,6 +58,14 @@ public class Book extends Section{
             localIndex++;
         }
         return null;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return this.id;
     }
 
     @Override
