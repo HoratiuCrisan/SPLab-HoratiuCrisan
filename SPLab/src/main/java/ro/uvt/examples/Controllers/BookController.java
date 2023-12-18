@@ -5,50 +5,70 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ro.uvt.examples.BookService;
+import ro.uvt.examples.Commands.*;
 import ro.uvt.info.splab.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
-    private final BookService bookService;
 
     @Autowired
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
-    }
+    private BookService bookService;
+    private CommandInvoker invoker;
+
+
     //Lab 9 HTTP Methods
     @GetMapping
     public List<Book> getBooks() {
-        return this.bookService.getAllBooks();
+        GetBookCommand command = new GetBookCommand(this.bookService.getBookList());
+        invoker = new CommandInvoker(command);
+        //invoker.setCommand(command);
+        invoker.executeCommand();
+
+        return new ArrayList<>(this.bookService.getBookList().values());
     }
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable Long id) {
-        return this.bookService.getBookById(id);
+    public void getBookById(@PathVariable Long id) {
+        GetBookByIdCommand command = new GetBookByIdCommand(id, this.bookService.getBookList());
+        invoker = new CommandInvoker(command);
+        //invoker.setCommand(command);
+        invoker.executeCommand();
     }
 
     @PostMapping("/add")
     public ResponseEntity<String> addBook(@RequestBody Map<String, String> requestBody) {
         String title = requestBody.get("title");
-        this.bookService.createBook(title);
+        CreateBookCommand command = new CreateBookCommand(title, this.bookService.getBookId(), this.bookService.getBookList());
+        invoker = new CommandInvoker(command);
+        //invoker.setCommand(command);
+        invoker.executeCommand();
+        this.bookService.setBookId(this.bookService.getBookId() + 1);
         return ResponseEntity.ok("Book " + title +" created successfully!");
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<String> updateBook(@PathVariable Long id, @RequestBody Map<String, String> requestBody) {
         String title = requestBody.get("title");
-        String responseMessage =  "Book " + this.bookService.getBookById(id).getTitle() + " updated to " + title;
-        this.bookService.updateBook(id, title);
+        String responseMessage =  "Book updated to " + title;
+        UpdateBookCommand command = new UpdateBookCommand(title, id, this.bookService.getBookList());
+        invoker = new CommandInvoker(command);
+        //invoker.setCommand(command);
+        invoker.executeCommand();
         return ResponseEntity.ok(responseMessage);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable Long id) {
-        this.bookService.deleteBook(id);
+        DeleteBookCommand command = new DeleteBookCommand(id, this.bookService.getBookList());
+        invoker = new CommandInvoker(command);
+        //invoker.setCommand(command);
+        invoker.executeCommand();
         return ResponseEntity.ok("Book " + id + " deleted successfully!");
     }
 
