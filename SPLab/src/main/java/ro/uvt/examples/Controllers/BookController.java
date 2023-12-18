@@ -46,7 +46,7 @@ public class BookController {
         String title = requestBody.get("title");
         CreateBookCommand command = new CreateBookCommand(title, this.bookService.getBookId(), this.bookService.getBookList());
         invoker = new CommandInvoker(command);
-        //invoker.setCommand(command);
+        invoker.setCommand(command);
         invoker.executeCommand();
         this.bookService.setBookId(this.bookService.getBookId() + 1);
         return ResponseEntity.ok("Book " + title +" created successfully!");
