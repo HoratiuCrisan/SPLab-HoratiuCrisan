@@ -1,40 +1,24 @@
 package ro.uvt.info.splab;
 
-import lombok.Getter;
-
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
-public class BMPImageLoader implements ImageLoader{
+public class BMPImage implements ImageLoader{
+
     @Override
-    public String loadImage(String url)  throws IOException{
+    public BufferedImage load(String url) throws IOException {
         try {
-            File imageFile = new File(url);
+            // Load image from URL
+            URL imageUrl = new URL(url);
+            BufferedImage image = ImageIO.read(imageUrl);
 
-            BufferedImage image = ImageIO.read(imageFile);
-
-            if (image != null) {
-                ImageIcon icon = new ImageIcon(image);
-                JFrame frame = new JFrame();
-
-                frame.setLayout(new FlowLayout());
-
-                frame.setSize(200, 300);
-                JLabel lbl=new JLabel();
-                lbl.setIcon(icon);
-                frame.add(lbl);
-                frame.setVisible(true);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-                return null;
-            }
-        }catch (IOException e) {
+            // Display the image in a JFrame
+            return image;
+        } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return "Image " + url + " is not BMP type!";
     }
 }
