@@ -1,36 +1,25 @@
 package ro.uvt.info.splab;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
-public class JPGImageLoader implements ImageLoader{
+public class JPGImage implements ImageLoader{
+
     @Override
-    public String loadImage(String url) throws IOException{
+    public BufferedImage load(String url) {
         try {
-            File imageFile = new File(url);
+            // Load image from URL
+            URL imageUrl = new URL(url);
+            BufferedImage image = ImageIO.read(imageUrl);
 
-            BufferedImage image = ImageIO.read(imageFile);
-
-            ImageIcon icon = new ImageIcon(image);
-            JFrame frame = new JFrame();
-
-            frame.setLayout(new FlowLayout());
-
-            frame.setSize(200, 300);
-            JLabel lbl=new JLabel();
-            lbl.setIcon(icon);
-            frame.add(lbl);
-            frame.setVisible(true);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-            return null;
+            // Display the image in a JFrame
+            return image;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
-        return "Image " + url + " is not JPG type!";
     }
 }
+
