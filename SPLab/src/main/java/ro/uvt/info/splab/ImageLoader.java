@@ -1,7 +1,8 @@
 package ro.uvt.info.splab;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public interface ImageLoader {
-    public String loadImage(String url) throws IOException;
+    public BufferedImage load(String url) throws IOException;
 }
