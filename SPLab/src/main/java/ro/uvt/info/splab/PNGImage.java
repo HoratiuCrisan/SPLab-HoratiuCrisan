@@ -1,3 +1,5 @@
+package ro.uvt.info.splab;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
