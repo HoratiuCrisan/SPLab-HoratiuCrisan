@@ -10,16 +10,49 @@ import java.util.concurrent.TimeUnit;
 @Getter
 
 public class Image implements Element, Picture{
-    private String content;
-    private String url;
+   private String url;
     private Element parent;
-    private Dimension dim;
+    private final Dimension dimension;
+    private final String imageContent;
 
 
-    public Image (String content, String url, Dimension dim) throws IOException {
-        this.content = content;
+    public Image(String url) {
         this.url = url;
-        new ImageLoaderFactory().createImageLoader(url);
+        this.dimension = null;
+        this.imageContent = null;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Image(String url, String imageContent) {
+        this.url = url;
+        this.dimension = null;
+        this.imageContent = imageContent;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Image(String url, Dimension dimension) {
+        this.url = url;
+        this.dimension = dimension;
+        this.imageContent = null;
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Image(String url, String imageContent, Dimension dimension) {
+        this.url = url;
+        this.dimension = dimension;
+        this.imageContent = imageContent;
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
@@ -27,19 +60,31 @@ public class Image implements Element, Picture{
         }
     }
 
-    @Override
-    public void add(Element element) throws Exception {
-        throw new Exception("You cannot add an element to a node element!");
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void renderImage() throws Exception {
+        new ImageFactory().create(this.url);
     }
 
     @Override
-    public void remove(Element element) throws Exception {
-        throw new Exception("You cannot remove an element from a leaf node!");
+    public String url() {
+        return this.url;
     }
 
     @Override
-    public Element get(int index) throws Exception {
-        throw new Exception("You cannot extract an element from a leaf node!");
+    public Dimension dim() {
+        return this.dimension;
+    }
+
+    @Override
+    public String content() {
+        return this.imageContent;
     }
 
     @Override
@@ -53,21 +98,23 @@ public class Image implements Element, Picture{
     }
 
     @Override
-    public String url() {
-        return this.url;
+    public void add(Element element) throws Exception {
+        throw new Exception("You cannot add an item to a leaf!");
     }
 
     @Override
-    public Dimension dim() {
-        return this.dim;
+    public void remove(Element element) throws Exception {
+        throw new Exception("You cannot remove an item from a leaf!");
     }
 
     @Override
-    public String content() {
-        return this.content;
+    public Element get(int index) throws Exception {
+        throw new Exception("You cannot get the index of an item from a leaf");
     }
+
     @Override
-    public void print() {
-        System.out.println("Image with name: " + this.url + "\n" + "Content: " + this.content);
+    public void print() throws Exception {
+        System.out.print("Image with name: " + this.url + "\n");
+        this.renderImage();
     }
 }
